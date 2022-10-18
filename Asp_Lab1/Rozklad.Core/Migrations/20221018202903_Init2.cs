@@ -215,6 +215,39 @@ namespace Rozklad.Core.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "75598d96-554f-48f4-98e9-92b4bb6dbcc4", "f0553078-1908-418c-99fd-c1228bc2a5b7", "Admin", "ADMIN" },
+                    { "7eb1682b-9c00-421f-9b90-4da7f4b753a1", "f33057f7-e1ad-4d1f-a27c-c91e2dc6722e", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "053f611a-f2bb-49ae-9766-67e091a51b95", 0, "d1d3a06b-4ffc-46c8-87cc-c66353717fa7", "admin@rozklad.com", true, null, null, false, null, "ADMIN@ROZKLAD.COM", "ADMIN@ROZKLAD.COM", "AQAAAAEAACcQAAAAECa5nTkQAgu+98kDl99ALzIrpj00oOspeB1PwFAbILIoy2MvAEkdB06/zCetqbuXlw==", null, false, "3be2e103-b6f1-4ce8-bede-ce6774dd5a0b", false, "admin@rozklad.com" },
+                    { "7c24234b-85f1-4461-a6ca-9e414e07465e", 0, "b90b87eb-647b-4fbc-a144-eb67c16c1f82", "user@rozklad.com", true, null, null, false, null, "USER@ROZKLAD.COM", "USER@ROZKLAD.COM", "AQAAAAEAACcQAAAAEH8zv6Y2PAMe7utrmTVr0X/OpcoUTmNUnOphoWXu6X7YGjCpG4ZN+IideoOozKqIsw==", null, false, "c0177c85-e0a3-40ca-bde5-b5c7e193bf7b", false, "user@rozklad.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "75598d96-554f-48f4-98e9-92b4bb6dbcc4", "053f611a-f2bb-49ae-9766-67e091a51b95" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "75598d96-554f-48f4-98e9-92b4bb6dbcc4", "7c24234b-85f1-4461-a6ca-9e414e07465e" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "7eb1682b-9c00-421f-9b90-4da7f4b753a1", "7c24234b-85f1-4461-a6ca-9e414e07465e" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",

@@ -11,6 +11,11 @@ namespace Rozklad.Core
 
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Seed();
+            base.OnModelCreating(builder);
+        }
         public DbSet<BusShedule> BusShedules { get; set; }
         
         public DbSet<BusRoute> BusRoutes { get; set; }

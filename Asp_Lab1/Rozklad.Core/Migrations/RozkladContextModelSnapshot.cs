@@ -47,6 +47,22 @@ namespace Rozklad.Core.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "75598d96-554f-48f4-98e9-92b4bb6dbcc4",
+                            ConcurrencyStamp = "f0553078-1908-418c-99fd-c1228bc2a5b7",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "7eb1682b-9c00-421f-9b90-4da7f4b753a1",
+                            ConcurrencyStamp = "f33057f7-e1ad-4d1f-a27c-c91e2dc6722e",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -136,6 +152,23 @@ namespace Rozklad.Core.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "053f611a-f2bb-49ae-9766-67e091a51b95",
+                            RoleId = "75598d96-554f-48f4-98e9-92b4bb6dbcc4"
+                        },
+                        new
+                        {
+                            UserId = "7c24234b-85f1-4461-a6ca-9e414e07465e",
+                            RoleId = "75598d96-554f-48f4-98e9-92b4bb6dbcc4"
+                        },
+                        new
+                        {
+                            UserId = "7c24234b-85f1-4461-a6ca-9e414e07465e",
+                            RoleId = "7eb1682b-9c00-421f-9b90-4da7f4b753a1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -309,6 +342,40 @@ namespace Rozklad.Core.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "053f611a-f2bb-49ae-9766-67e091a51b95",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d1d3a06b-4ffc-46c8-87cc-c66353717fa7",
+                            Email = "admin@rozklad.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ROZKLAD.COM",
+                            NormalizedUserName = "ADMIN@ROZKLAD.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAECa5nTkQAgu+98kDl99ALzIrpj00oOspeB1PwFAbILIoy2MvAEkdB06/zCetqbuXlw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "3be2e103-b6f1-4ce8-bede-ce6774dd5a0b",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@rozklad.com"
+                        },
+                        new
+                        {
+                            Id = "7c24234b-85f1-4461-a6ca-9e414e07465e",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b90b87eb-647b-4fbc-a144-eb67c16c1f82",
+                            Email = "user@rozklad.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@ROZKLAD.COM",
+                            NormalizedUserName = "USER@ROZKLAD.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH8zv6Y2PAMe7utrmTVr0X/OpcoUTmNUnOphoWXu6X7YGjCpG4ZN+IideoOozKqIsw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c0177c85-e0a3-40ca-bde5-b5c7e193bf7b",
+                            TwoFactorEnabled = false,
+                            UserName = "user@rozklad.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
