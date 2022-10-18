@@ -8,6 +8,13 @@ namespace Rozklad.Core
         public RozkladContext(DbContextOptions<RozkladContext> options)
             : base(options)
         {
+
         }
+
+        public DbSet<BusShedule> BusShedules { get; set; }
+        
+        public DbSet<BusRoute> BusRoutes { get; set; }
+
+        public DbSet<Carrier> Carriers { get; set; }
     }
 }

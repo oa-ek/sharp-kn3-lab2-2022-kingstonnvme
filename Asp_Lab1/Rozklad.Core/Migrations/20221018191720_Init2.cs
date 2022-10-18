@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Rozklad.Core.Migrations
 {
-    public partial class test1 : Migration
+    public partial class Init2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,34 @@ namespace Rozklad.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BusRoutes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlaceOfDeparture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlaceOfArrival = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusRoutes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carriers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Transport = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carriers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +184,37 @@ namespace Rozklad.Core.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BusShedules",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BusrouteId = table.Column<int>(type: "int", nullable: false),
+                    Seats = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    carrierId = table.Column<int>(type: "int", nullable: false),
+                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cost = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusShedules", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BusShedules_BusRoutes_BusrouteId",
+                        column: x => x.BusrouteId,
+                        principalTable: "BusRoutes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BusShedules_Carriers_carrierId",
+                        column: x => x.carrierId,
+                        principalTable: "Carriers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,6 +253,16 @@ namespace Rozklad.Core.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusShedules_BusrouteId",
+                table: "BusShedules",
+                column: "BusrouteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusShedules_carrierId",
+                table: "BusShedules",
+                column: "carrierId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -214,10 +283,19 @@ namespace Rozklad.Core.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "BusShedules");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "BusRoutes");
+
+            migrationBuilder.DropTable(
+                name: "Carriers");
         }
     }
 }
