@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-Rozklad.UI-24CD4F1F-3768-48A0-8B00-465C338CECAD</UserSecretsId>
+    <UserSecretsId>aspnet-RozkladRozklad.UI-24CD4F1F-3768-48A0-8B00-465C338CECAD</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rozklad.Core\Rozklad.Core.csproj" />
+    <ProjectReference Include="..\Rozklad.Repos\Rozklad.Repos.csproj" />
   </ItemGroup>
 
 </Project>
