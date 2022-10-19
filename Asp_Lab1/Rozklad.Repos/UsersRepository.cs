@@ -22,6 +22,33 @@ namespace Rozklad.Repos
             this.roleManager = roleManager;
         }
 
+        public async Task<User> CreateUserAsync(string? firstName, string? lastName, string? password, string? email)
+        {
+            var newUser = new User
+            {
+                FirstName = firstName
+                , LastName = lastName,
+                Email = email,
+                UserName = email,
+                NormalizedEmail = email.ToUpper(),
+                NormalizedUserName = email.ToUpper(),
+                EmailConfirmed = true
+            };
+            await userManager.CreateAsync(newUser, password);
+            return await _ctx.Users.FirstAsync(x => x.Email == email);
+        }
+
+        public async Task DeleteUserAsync(string id)
+        {
+            var user = _ctx.Users.Find(id);
+
+            if((await userManager.GetRolesAsync(user)).Any())
+            {
+                await userManager.RemoveFromRolesAsync(user, await userManager.GetRolesAsync(user));
+            }
+            await userManager.DeleteAsync(user);
+        }
+
         public async Task<IEnumerable<UserReadDto>> GetUsersAsync()
         {
             var users = new List<UserReadDto>();
@@ -32,7 +59,8 @@ namespace Rozklad.Repos
                 {
                     Id = u.Id,
                     Email = u.Email,
-                    FullName = $"{u.LastName} {u.FirstName}",
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
                     IsConfirmed = u.EmailConfirmed,
                     Roles = new List<IdentityRole>()
                 };
@@ -46,5 +74,28 @@ namespace Rozklad.Repos
             }
             return users;
         }
+
+        public async Task<UserReadDto> GetUsersAsync(string id)
+        {
+            var u = await _ctx.Users.FirstAsync(x => x.Id == id);
+
+           
+                var userDto = new UserReadDto
+                {
+                    Id = u.Id,
+                    Email = u.Email,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    IsConfirmed = u.EmailConfirmed,
+                    Roles = new List<IdentityRole>()
+                };
+
+                foreach (var role in await userManager.GetRolesAsync(u))
+                {
+                    userDto.Roles.Add(await _ctx.Roles.FirstAsync(x => x.Name.ToLower() == role.ToLower()));
+
+                }
+            return userDto;
+            }
     }
 }
