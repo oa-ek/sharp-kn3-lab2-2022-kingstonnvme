@@ -49,6 +49,11 @@ namespace Rozklad.Repos
             await userManager.DeleteAsync(user);
         }
 
+        public async Task<IEnumerable<IdentityRole>> GetRolesAsync()
+        {
+            return await _ctx.Roles.ToListAsync();
+        }
+
         public async Task<IEnumerable<UserReadDto>> GetUsersAsync()
         {
             var users = new List<UserReadDto>();
@@ -97,5 +102,40 @@ namespace Rozklad.Repos
                 }
             return userDto;
             }
+
+        public async Task UpdateAsync(UserReadDto model, string[] roles)
+        {
+            var user = _ctx.Users.Find(model.Id);
+
+            if(user.Email != model.Email)
+            {
+                user.Email = model.Email;
+                user.UserName = model.Email;
+                user.NormalizedUserName = model.Email.ToUpper();
+                user.NormalizedEmail = model.Email.ToUpper();
+            }
+
+            if(user.FirstName != model.FirstName)
+                user.FirstName = model.FirstName;
+
+            if(user.LastName != model.LastName)
+                user.LastName = model.LastName;
+
+            if (user.EmailConfirmed != model.IsConfirmed)
+                user.EmailConfirmed = model.IsConfirmed;
+
+            //var admRole = await _roleManager.FindByNameAsync("Admin");
+
+
+            if((await userManager.GetRolesAsync(user)).Any())
+            {
+                await userManager.RemoveFromRolesAsync(user, await userManager.GetRolesAsync(user));
+            }
+
+            if(roles.Any())
+            {
+                await userManager.AddToRolesAsync(user, roles.ToList());
+            }
+        }
     }
 }

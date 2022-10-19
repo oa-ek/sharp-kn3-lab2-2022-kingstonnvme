@@ -54,6 +54,26 @@ namespace Rozklad.UI.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            ViewBag.Roles = await usersRepository.GetRolesAsync();
+            return View(await usersRepository.GetUsersAsync(id));
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(UserReadDto model, string[] roles)
+        {
+            if(ModelState.IsValid)
+            {
+                await usersRepository.UpdateAsync(model, roles);
+                return RedirectToAction("Index");
+            }
+            ViewBag.Roles = await usersRepository.GetRolesAsync();
+            return View(model);
+        }
+
         }
     }
 
