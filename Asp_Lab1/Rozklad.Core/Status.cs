@@ -8,17 +8,13 @@ using System.Threading.Tasks;
 
 namespace Rozklad.Core
 {
-    public class BusRoute
+    public class Status
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int Id { get; set; }
-
-        public string PlaceOfDeparture { get; set; }
-
-        public string IntermediateStops { get; set; }
-
-        public string PlaceOfArrival { get; set; }
+        public string StatusValue { get; set; }
+       
     }
 }

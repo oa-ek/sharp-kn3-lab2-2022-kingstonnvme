@@ -12,8 +12,8 @@ using Rozklad.Core;
 namespace Rozklad.Core.Migrations
 {
     [DbContext(typeof(RozkladContext))]
-    [Migration("20221018202903_Init2")]
-    partial class Init2
+    [Migration("20221019194917_Initial-Migration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,15 +53,15 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "75598d96-554f-48f4-98e9-92b4bb6dbcc4",
-                            ConcurrencyStamp = "f0553078-1908-418c-99fd-c1228bc2a5b7",
+                            Id = "17bcd393-0fad-465b-9d00-947f22b1928b",
+                            ConcurrencyStamp = "85b19e69-c032-4af6-b04b-403b7e2e6376",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "7eb1682b-9c00-421f-9b90-4da7f4b753a1",
-                            ConcurrencyStamp = "f33057f7-e1ad-4d1f-a27c-c91e2dc6722e",
+                            Id = "73438138-cbce-4c9f-9110-ee7355a3b904",
+                            ConcurrencyStamp = "dd23e05e-ba34-47a1-8e2b-6ac75253eac7",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -158,18 +158,18 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "053f611a-f2bb-49ae-9766-67e091a51b95",
-                            RoleId = "75598d96-554f-48f4-98e9-92b4bb6dbcc4"
+                            UserId = "dd9eb0be-5248-434e-9c88-bb98f1ab513e",
+                            RoleId = "17bcd393-0fad-465b-9d00-947f22b1928b"
                         },
                         new
                         {
-                            UserId = "7c24234b-85f1-4461-a6ca-9e414e07465e",
-                            RoleId = "75598d96-554f-48f4-98e9-92b4bb6dbcc4"
+                            UserId = "d26920c0-b2d5-47cc-b7ca-083a992ab27a",
+                            RoleId = "17bcd393-0fad-465b-9d00-947f22b1928b"
                         },
                         new
                         {
-                            UserId = "7c24234b-85f1-4461-a6ca-9e414e07465e",
-                            RoleId = "7eb1682b-9c00-421f-9b90-4da7f4b753a1"
+                            UserId = "d26920c0-b2d5-47cc-b7ca-083a992ab27a",
+                            RoleId = "73438138-cbce-4c9f-9110-ee7355a3b904"
                         });
                 });
 
@@ -201,6 +201,10 @@ namespace Rozklad.Core.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("IntermediateStops")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlaceOfArrival")
                         .IsRequired()
@@ -238,11 +242,10 @@ namespace Rozklad.Core.Migrations
                     b.Property<int>("Seats")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("carrierId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("statusId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -250,6 +253,8 @@ namespace Rozklad.Core.Migrations
                     b.HasIndex("BusrouteId");
 
                     b.HasIndex("carrierId");
+
+                    b.HasIndex("statusId");
 
                     b.ToTable("BusShedules");
                 });
@@ -273,6 +278,23 @@ namespace Rozklad.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Carriers");
+                });
+
+            modelBuilder.Entity("Rozklad.Core.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("StatusValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("Rozklad.Core.User", b =>
@@ -348,33 +370,33 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "053f611a-f2bb-49ae-9766-67e091a51b95",
+                            Id = "dd9eb0be-5248-434e-9c88-bb98f1ab513e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1d3a06b-4ffc-46c8-87cc-c66353717fa7",
+                            ConcurrencyStamp = "9ea7821e-960b-4308-aaa6-1bcedcf77d9b",
                             Email = "admin@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ROZKLAD.COM",
                             NormalizedUserName = "ADMIN@ROZKLAD.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECa5nTkQAgu+98kDl99ALzIrpj00oOspeB1PwFAbILIoy2MvAEkdB06/zCetqbuXlw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOUkWIAV/p+zyKkOZy8Y/kOHgt7hrtLEdLoCmWRCqn17YjvZhRiN1X5AiYk2h4g0Yw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3be2e103-b6f1-4ce8-bede-ce6774dd5a0b",
+                            SecurityStamp = "5d6a3484-51e6-47c1-9160-3d8085eb3864",
                             TwoFactorEnabled = false,
                             UserName = "admin@rozklad.com"
                         },
                         new
                         {
-                            Id = "7c24234b-85f1-4461-a6ca-9e414e07465e",
+                            Id = "d26920c0-b2d5-47cc-b7ca-083a992ab27a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b90b87eb-647b-4fbc-a144-eb67c16c1f82",
+                            ConcurrencyStamp = "556e541f-b325-447a-9b05-e715113e9044",
                             Email = "user@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@ROZKLAD.COM",
                             NormalizedUserName = "USER@ROZKLAD.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH8zv6Y2PAMe7utrmTVr0X/OpcoUTmNUnOphoWXu6X7YGjCpG4ZN+IideoOozKqIsw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHVdy15oe4QycTRY9MbmZmNHj2hmBZvYSfDuguDjYimOdWav+6rgH9jeDsFB8hEmSA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c0177c85-e0a3-40ca-bde5-b5c7e193bf7b",
+                            SecurityStamp = "d8d36386-7849-4688-813f-4fa9b80f5fb4",
                             TwoFactorEnabled = false,
                             UserName = "user@rozklad.com"
                         });
@@ -445,9 +467,17 @@ namespace Rozklad.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Rozklad.Core.Status", "status")
+                        .WithMany()
+                        .HasForeignKey("statusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Busroute");
 
                     b.Navigation("carrier");
+
+                    b.Navigation("status");
                 });
 #pragma warning restore 612, 618
         }

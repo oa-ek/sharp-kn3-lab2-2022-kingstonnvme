@@ -12,20 +12,12 @@ namespace Rozklad.Core
         [Key]
 
         public int Id { get; set; }
-
         public DateTime DepartureTime { get; set; }
-
         public BusRoute Busroute { get; set; }
-
-        public int Seats { get; set; }
-
-        public string Status    { get; set; }
+        public int Seats { get; set; }       
         public Carrier carrier { get; set; }
-        
+        public Status status { get; set; }
         public DateTime ArrivalTime { get; set; }
-
-        public float Cost { get; set; }    
-
-       
+        public float Cost { get; set; }           
     }
 }
