@@ -404,3 +404,5 @@ Asp_Lab1/Rozklad.Core/Migrations/20221019202601_Initial-Migration.cs
 Asp_Lab1/Rozklad.Core/Migrations/RozkladContextModelSnapshot.cs
 Asp_Lab1/Rozklad.UI/appsettings.json
 
+Asp_Lab1/Rozklad.Core/Migrations/20221019213953_Initial-Migration.Designer.cs
+Asp_Lab1/Rozklad.Core/Migrations/20221019213953_Initial-Migration.cs
