@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rozklad.Core;
 
@@ -11,9 +12,10 @@ using Rozklad.Core;
 namespace Rozklad.Core.Migrations
 {
     [DbContext(typeof(RozkladContext))]
-    partial class RozkladContextModelSnapshot : ModelSnapshot
+    [Migration("20221019194917_Initial-Migration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,19 +53,15 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-
                             Id = "17bcd393-0fad-465b-9d00-947f22b1928b",
                             ConcurrencyStamp = "85b19e69-c032-4af6-b04b-403b7e2e6376",
-
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-
                             Id = "73438138-cbce-4c9f-9110-ee7355a3b904",
                             ConcurrencyStamp = "dd23e05e-ba34-47a1-8e2b-6ac75253eac7",
-
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -160,7 +158,6 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-
                             UserId = "dd9eb0be-5248-434e-9c88-bb98f1ab513e",
                             RoleId = "17bcd393-0fad-465b-9d00-947f22b1928b"
                         },
@@ -173,7 +170,6 @@ namespace Rozklad.Core.Migrations
                         {
                             UserId = "d26920c0-b2d5-47cc-b7ca-083a992ab27a",
                             RoleId = "73438138-cbce-4c9f-9110-ee7355a3b904"
-
                         });
                 });
 
@@ -374,41 +370,33 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-
                             Id = "dd9eb0be-5248-434e-9c88-bb98f1ab513e",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "9ea7821e-960b-4308-aaa6-1bcedcf77d9b",
-
                             Email = "admin@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ROZKLAD.COM",
                             NormalizedUserName = "ADMIN@ROZKLAD.COM",
-
                             PasswordHash = "AQAAAAEAACcQAAAAEOUkWIAV/p+zyKkOZy8Y/kOHgt7hrtLEdLoCmWRCqn17YjvZhRiN1X5AiYk2h4g0Yw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "5d6a3484-51e6-47c1-9160-3d8085eb3864",
-
                             TwoFactorEnabled = false,
                             UserName = "admin@rozklad.com"
                         },
                         new
                         {
-
                             Id = "d26920c0-b2d5-47cc-b7ca-083a992ab27a",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "556e541f-b325-447a-9b05-e715113e9044",
-
                             Email = "user@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@ROZKLAD.COM",
                             NormalizedUserName = "USER@ROZKLAD.COM",
-
                             PasswordHash = "AQAAAAEAACcQAAAAEHVdy15oe4QycTRY9MbmZmNHj2hmBZvYSfDuguDjYimOdWav+6rgH9jeDsFB8hEmSA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d8d36386-7849-4688-813f-4fa9b80f5fb4",
-
                             TwoFactorEnabled = false,
                             UserName = "user@rozklad.com"
                         });
