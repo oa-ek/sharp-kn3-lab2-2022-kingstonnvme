@@ -13,8 +13,9 @@ namespace Rozklad.Core
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-        public int Id { get; set; }
+        public int statusId { get; set; }
         public string StatusValue { get; set; }
-       
+        public virtual ICollection<BusShedule> BusShedules { get; set; }
+
     }
 }
