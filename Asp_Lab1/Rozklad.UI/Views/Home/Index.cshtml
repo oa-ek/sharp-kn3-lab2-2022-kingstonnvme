@@ -1,8 +1,43 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using Rozklad.Repos.Dto
+@model IEnumerable<BusSheduleReadDto>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="float-end">
+    <a href="/home/create" class="btn btn-outline-primary">Додати інформацію</a>
 </div>
+
+<h1>Розклад руху автобусів!</h1>
+<hr />
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Departure Time</th>
+            <th>Bus route</th>
+            <th>Seats</th>
+            <th>Carrier</th>
+            <th>Status</th>
+            <th>Arrival time</th>
+            <th>Cost</th>
+            <th>btn</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.DepartureTime</td>
+                <td></td>
+                <td>@u.Seats</td>
+                <td></td>
+                <td></td>
+                <td>@u.ArrivalTime</td>
+                <td>@u.Cost</td>
+                <td>
+                    <a href="/home/edit/@u.Id" class=" btn btn-warning">Редагувати</a>
+                    <a href="/home/delete/@u.Id" class=" btn btn-danger">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <
+</table>

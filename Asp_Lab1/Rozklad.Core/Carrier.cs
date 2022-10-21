@@ -13,11 +13,12 @@ namespace Rozklad.Core
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-        public int Id { get; set; }
+        public int carrierId { get; set; }
 
         public string Name { get; set; }
 
-        public string Transport { get; set; }  
+        public string Transport { get; set; }
+        public virtual ICollection<BusShedule> BusShedules { get; set; }
 
     }
 }

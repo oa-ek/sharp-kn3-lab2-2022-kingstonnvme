@@ -1,21 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Rozklad.Repos;
 using Rozklad.UI.Models;
 using System.Diagnostics;
+using Rozklad.Repos.Dto;
 
 namespace Rozklad.UI.Controllers
 {
+    
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+       
+        private readonly BusSheduleRepository busRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(BusSheduleRepository busRepository)
         {
-            _logger = logger;
+            this.busRepository = busRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await busRepository.GetBusSheduleAsync());
         }
 
         public IActionResult Privacy()

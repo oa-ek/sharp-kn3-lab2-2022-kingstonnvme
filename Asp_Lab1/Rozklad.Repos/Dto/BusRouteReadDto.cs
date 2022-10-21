@@ -1,18 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Rozklad.Core;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rozklad.Core
+namespace Rozklad.Repos.Dto
 {
-    public class BusRoute
+    public class BusRouteReadDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
         public int BusrouteId { get; set; }
 
         public string PlaceOfDeparture { get; set; }
@@ -21,6 +18,5 @@ namespace Rozklad.Core
 
         public string PlaceOfArrival { get; set; }
 
-        public virtual ICollection<BusShedule> BusShedules { get; set; }
     }
 }

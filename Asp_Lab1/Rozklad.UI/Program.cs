@@ -24,6 +24,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<UsersRepository>();
+builder.Services.AddTransient<BusSheduleRepository>();
 
 var app = builder.Build();
 
