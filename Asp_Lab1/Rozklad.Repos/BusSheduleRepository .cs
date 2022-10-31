@@ -5,6 +5,7 @@ using Rozklad.Repos.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace Rozklad.Repos
 
             var shedules = new List<BusSheduleReadDto>();
 
-             foreach (var u in  _ctx.BusShedules.Include(x => x.Busroute).ToList())
+             foreach (var u in  _ctx.BusShedules.Include(x => x.Busroute).Include(x => x.carrier).Include(x=>x.status).ToList())
              {
                
 
@@ -35,10 +36,13 @@ namespace Rozklad.Repos
                 {
                     DepartureTime = u.DepartureTime,
                    
-                    Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, IntermediateStops = u.Busroute.IntermediateStops},
+                    Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, PlaceOfDeparture = u.Busroute.PlaceOfDeparture, IntermediateStops = u.Busroute.IntermediateStops, PlaceOfArrival = u.Busroute.PlaceOfArrival},
                      Seats = u.Seats,
-                     Cost = u.Cost,
+                     carier = new CarrierReadDto {carrierId = u.carrierId , Name = u.carrier.Name, Transport = u.carrier.Transport },
+
+                         Cost = u.Cost,
                      ArrivalTime = u.ArrivalTime,
+                     status = new StatusReadDto { statusId =u.statusId , StatusValue = u.status.StatusValue}
             };
 
             

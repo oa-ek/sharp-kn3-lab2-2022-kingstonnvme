@@ -18,6 +18,7 @@
             <th>Status</th>
             <th>Arrival time</th>
             <th>Cost</th>
+            <th>Квитки</th>
             <th>btn</th>
         </tr>
     </thead>
@@ -26,12 +27,15 @@
         {
             <tr>
                 <td>@u.DepartureTime</td>
-                <td>@u.Busrooute.IntermediateStops</td>
+                <td>@u.Busrooute.PlaceOfDeparture - @u.Busrooute.IntermediateStops - @u.Busrooute.PlaceOfArrival
+                    <a href="/home/maps/@u.Id" class=" btn btn-warning">Карта</a>
+                </td>
                 <td>@u.Seats</td>
-                <td></td>
-                <td></td>
+                <td>@u.carier.Name - @u.carier.Transport</td>
+                <td>@u.status.StatusValue</td>
                 <td>@u.ArrivalTime</td>
                 <td>@u.Cost</td>
+                <td> <a href="/home/buy/@u.Id" class=" btn btn-warning">Придбати квиток</a></td>
                 <td>
                     <a href="/home/edit/@u.Id" class=" btn btn-warning">Редагувати</a>
                     <a href="/home/delete/@u.Id" class=" btn btn-danger">Видалити</a>
