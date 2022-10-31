@@ -24,6 +24,9 @@ namespace Rozklad.Core
         public int statusId { get; set; }
         public Status status { get; set; }
         public DateTime ArrivalTime { get; set; }
-        public float Cost { get; set; }           
+        public float Cost { get; set; }
+
+        public int buyTicketId { get; set; }
+        public BuyTicket buyTicket { get; set; }
     }
 }

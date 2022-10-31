@@ -73,19 +73,51 @@ namespace Rozklad.Core
                          RoleId = USER_ROLE_ID,
                          UserId = USER_ID
                      });
+            builder.Entity<MapsRoute>().HasData(
+            new MapsRoute
+            {
+           mapsRouteId = 1,
 
-            
+       CoordinateOfDeparture = 123,
+
+         CoordinateOfArrival = 434
+    });
+
             builder.Entity<BusRoute>().HasData(
              new BusRoute
              {
                  BusrouteId = 1,
                  PlaceOfDeparture = "Острог",
                  IntermediateStops = "gremzc",
-                 PlaceOfArrival = "Рівне"
+                 PlaceOfArrival = "Рівне",
+                 mapsRouteId = 1
              });
 
             DateTime date1 = new DateTime(2022, 7, 20, 18, 30, 25);
             DateTime date2 = new DateTime(2022, 7, 20, 20, 30, 25);
+
+            builder.Entity<Card>().HasData(
+            new Card
+            {
+                   cardId =1,
+         NomerCard = "3t46363477",
+
+        DateEnd = "01/26",
+       CVC_kod = "234"
+    });
+           
+
+        builder.Entity<BuyTicket>().HasData(
+            new BuyTicket
+            {
+               buyTicketId =1,
+        BuyerName = "ilas",
+        numTicket = 3,
+       NomerTel = "78685895",
+       cardId = 1,
+        AllPrice  = 125
+
+    });
 
             builder.Entity<BusShedule>().HasData(
 new BusShedule
@@ -97,7 +129,8 @@ Seats = 30,
     carrierId =1, 
     statusId = 1, 
    ArrivalTime = date2,
-Cost = 75
+Cost = 75,
+buyTicketId = 1
 
 });
 
