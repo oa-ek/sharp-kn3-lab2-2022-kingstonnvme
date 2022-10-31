@@ -51,18 +51,18 @@ namespace Rozklad.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BusRoutes",
+                name: "Cards",
                 columns: table => new
                 {
-                    BusrouteId = table.Column<int>(type: "int", nullable: false)
+                    cardId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PlaceOfDeparture = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IntermediateStops = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlaceOfArrival = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    NomerCard = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateEnd = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CVC_kod = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BusRoutes", x => x.BusrouteId);
+                    table.PrimaryKey("PK_Cards", x => x.cardId);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,6 +77,20 @@ namespace Rozklad.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carriers", x => x.carrierId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MapsRoutes",
+                columns: table => new
+                {
+                    mapsRouteId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CoordinateOfDeparture = table.Column<float>(type: "real", nullable: false),
+                    CoordinateOfArrival = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MapsRoutes", x => x.mapsRouteId);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,6 +213,51 @@ namespace Rozklad.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BuyTickets",
+                columns: table => new
+                {
+                    buyTicketId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BuyerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    numTicket = table.Column<int>(type: "int", nullable: false),
+                    NomerTel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AllPrice = table.Column<int>(type: "int", nullable: false),
+                    cardId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BuyTickets", x => x.buyTicketId);
+                    table.ForeignKey(
+                        name: "FK_BuyTickets_Cards_cardId",
+                        column: x => x.cardId,
+                        principalTable: "Cards",
+                        principalColumn: "cardId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BusRoutes",
+                columns: table => new
+                {
+                    BusrouteId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlaceOfDeparture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IntermediateStops = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlaceOfArrival = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    mapsRouteId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusRoutes", x => x.BusrouteId);
+                    table.ForeignKey(
+                        name: "FK_BusRoutes_MapsRoutes_mapsRouteId",
+                        column: x => x.mapsRouteId,
+                        principalTable: "MapsRoutes",
+                        principalColumn: "mapsRouteId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BusShedules",
                 columns: table => new
                 {
@@ -210,7 +269,8 @@ namespace Rozklad.Core.Migrations
                     carrierId = table.Column<int>(type: "int", nullable: false),
                     statusId = table.Column<int>(type: "int", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Cost = table.Column<float>(type: "real", nullable: false)
+                    Cost = table.Column<float>(type: "real", nullable: false),
+                    buyTicketId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -220,6 +280,12 @@ namespace Rozklad.Core.Migrations
                         column: x => x.BusrouteId,
                         principalTable: "BusRoutes",
                         principalColumn: "BusrouteId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BusShedules_BuyTickets_buyTicketId",
+                        column: x => x.buyTicketId,
+                        principalTable: "BuyTickets",
+                        principalColumn: "buyTicketId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_BusShedules_Carriers_carrierId",
@@ -240,8 +306,8 @@ namespace Rozklad.Core.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1a60b1a8-9fce-4c02-be19-b4b44ab3d4fa", "9f045c7c-9a89-423d-9257-950b1662219f", "Admin", "ADMIN" },
-                    { "aca824a2-570c-476d-ae80-8f2b9518b6c7", "93be245b-aae2-40cc-a0ba-a2125f7a1b36", "User", "USER" }
+                    { "95c8af7b-a99f-4d4a-b22b-0489fbe786ca", "25cc7aeb-27a7-4c82-836a-f7740c9b2684", "Admin", "ADMIN" },
+                    { "c376a58b-f60b-4f00-ba93-86d5275b9f40", "ea87057b-77c6-4e23-ab81-d7a413713eb0", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -249,19 +315,24 @@ namespace Rozklad.Core.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "098c2bdf-539b-43ca-9628-eb19598081ab", 0, "b2e27d80-4f07-4a29-8482-bc9f3534beb8", "user@rozklad.com", true, null, null, false, null, "USER@ROZKLAD.COM", "USER@ROZKLAD.COM", "AQAAAAEAACcQAAAAEJr/X7utT5zIwvi6FwpmBGf/WJrWwZRMjcUBKA1hQHjpv83p+fQGJhjWPPgTDGxS6A==", null, false, "d2a47619-475c-44a4-806e-895b79bb3a45", false, "user@rozklad.com" },
-                    { "c7397cf2-89ad-495a-987b-936dae5f09c5", 0, "cf775e95-1563-4fc5-b8f7-47737e2c85b3", "admin@rozklad.com", true, null, null, false, null, "ADMIN@ROZKLAD.COM", "ADMIN@ROZKLAD.COM", "AQAAAAEAACcQAAAAEBVdpsHySrOIogTUyU0G8JdJEQs/xItgvB1KcU8+/Ix6/02Kvn6p4flS2c1LwU1mLA==", null, false, "4a908261-0160-47cd-96d4-706ab36d3826", false, "admin@rozklad.com" }
+                    { "6b2fdfc3-b068-4e85-8393-ea6a97324207", 0, "b2eaf644-ace3-4d5a-89c4-5d7933c3e8b1", "admin@rozklad.com", true, null, null, false, null, "ADMIN@ROZKLAD.COM", "ADMIN@ROZKLAD.COM", "AQAAAAEAACcQAAAAEOAEN75KbOmbTD6cmlgOyMYFuKTiUlfqVoneqFRPsYgU7Yww/4AouwVkI6bVoakyOQ==", null, false, "ce549884-52e6-4d5e-a096-80b82b8b1fe4", false, "admin@rozklad.com" },
+                    { "c3688914-cf54-4caf-9ef2-d3b0a2c7f0d8", 0, "676dcbb6-c6f1-455a-8f22-7df9f3537a2b", "user@rozklad.com", true, null, null, false, null, "USER@ROZKLAD.COM", "USER@ROZKLAD.COM", "AQAAAAEAACcQAAAAECJWa05/xw1jf7ErdIyxqHfd4limZTxd69U8Q1H/i2NtiDFJiAqkkrf7AiSxI4ZTJg==", null, false, "980dd4b5-a05b-499a-9c1d-18425056f594", false, "user@rozklad.com" }
                 });
 
             migrationBuilder.InsertData(
-                table: "BusRoutes",
-                columns: new[] { "BusrouteId", "IntermediateStops", "PlaceOfArrival", "PlaceOfDeparture" },
-                values: new object[] { 1, "gremzc", "Рівне", "Острог" });
+                table: "Cards",
+                columns: new[] { "cardId", "CVC_kod", "DateEnd", "NomerCard" },
+                values: new object[] { 1, "234", "01/26", "3t46363477" });
 
             migrationBuilder.InsertData(
                 table: "Carriers",
                 columns: new[] { "carrierId", "Name", "Transport" },
                 values: new object[] { 1, "Ilias", "autobus" });
+
+            migrationBuilder.InsertData(
+                table: "MapsRoutes",
+                columns: new[] { "mapsRouteId", "CoordinateOfArrival", "CoordinateOfDeparture" },
+                values: new object[] { 1, 434f, 123f });
 
             migrationBuilder.InsertData(
                 table: "Statuses",
@@ -273,15 +344,25 @@ namespace Rozklad.Core.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "aca824a2-570c-476d-ae80-8f2b9518b6c7", "098c2bdf-539b-43ca-9628-eb19598081ab" },
-                    { "1a60b1a8-9fce-4c02-be19-b4b44ab3d4fa", "c7397cf2-89ad-495a-987b-936dae5f09c5" },
-                    { "aca824a2-570c-476d-ae80-8f2b9518b6c7", "c7397cf2-89ad-495a-987b-936dae5f09c5" }
+                    { "95c8af7b-a99f-4d4a-b22b-0489fbe786ca", "6b2fdfc3-b068-4e85-8393-ea6a97324207" },
+                    { "c376a58b-f60b-4f00-ba93-86d5275b9f40", "6b2fdfc3-b068-4e85-8393-ea6a97324207" },
+                    { "c376a58b-f60b-4f00-ba93-86d5275b9f40", "c3688914-cf54-4caf-9ef2-d3b0a2c7f0d8" }
                 });
 
             migrationBuilder.InsertData(
+                table: "BusRoutes",
+                columns: new[] { "BusrouteId", "IntermediateStops", "PlaceOfArrival", "PlaceOfDeparture", "mapsRouteId" },
+                values: new object[] { 1, "gremzc", "Рівне", "Острог", 1 });
+
+            migrationBuilder.InsertData(
+                table: "BuyTickets",
+                columns: new[] { "buyTicketId", "AllPrice", "BuyerName", "NomerTel", "cardId", "numTicket" },
+                values: new object[] { 1, 125, "ilas", "78685895", 1, 3 });
+
+            migrationBuilder.InsertData(
                 table: "BusShedules",
-                columns: new[] { "Id", "ArrivalTime", "BusrouteId", "Cost", "DepartureTime", "Seats", "carrierId", "statusId" },
-                values: new object[] { 1, new DateTime(2022, 7, 20, 20, 30, 25, 0, DateTimeKind.Unspecified), 1, 75f, new DateTime(2022, 7, 20, 18, 30, 25, 0, DateTimeKind.Unspecified), 30, 1, 1 });
+                columns: new[] { "Id", "ArrivalTime", "BusrouteId", "Cost", "DepartureTime", "Seats", "buyTicketId", "carrierId", "statusId" },
+                values: new object[] { 1, new DateTime(2022, 7, 20, 20, 30, 25, 0, DateTimeKind.Unspecified), 1, 75f, new DateTime(2022, 7, 20, 18, 30, 25, 0, DateTimeKind.Unspecified), 30, 1, 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -323,9 +404,19 @@ namespace Rozklad.Core.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BusRoutes_mapsRouteId",
+                table: "BusRoutes",
+                column: "mapsRouteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BusShedules_BusrouteId",
                 table: "BusShedules",
                 column: "BusrouteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusShedules_buyTicketId",
+                table: "BusShedules",
+                column: "buyTicketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BusShedules_carrierId",
@@ -336,6 +427,11 @@ namespace Rozklad.Core.Migrations
                 name: "IX_BusShedules_statusId",
                 table: "BusShedules",
                 column: "statusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BuyTickets_cardId",
+                table: "BuyTickets",
+                column: "cardId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -368,10 +464,19 @@ namespace Rozklad.Core.Migrations
                 name: "BusRoutes");
 
             migrationBuilder.DropTable(
+                name: "BuyTickets");
+
+            migrationBuilder.DropTable(
                 name: "Carriers");
 
             migrationBuilder.DropTable(
                 name: "Statuses");
+
+            migrationBuilder.DropTable(
+                name: "MapsRoutes");
+
+            migrationBuilder.DropTable(
+                name: "Cards");
         }
     }
 }

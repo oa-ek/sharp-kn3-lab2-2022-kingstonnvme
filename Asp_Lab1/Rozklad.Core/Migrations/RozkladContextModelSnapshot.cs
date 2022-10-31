@@ -51,15 +51,15 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1a60b1a8-9fce-4c02-be19-b4b44ab3d4fa",
-                            ConcurrencyStamp = "9f045c7c-9a89-423d-9257-950b1662219f",
+                            Id = "95c8af7b-a99f-4d4a-b22b-0489fbe786ca",
+                            ConcurrencyStamp = "25cc7aeb-27a7-4c82-836a-f7740c9b2684",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "aca824a2-570c-476d-ae80-8f2b9518b6c7",
-                            ConcurrencyStamp = "93be245b-aae2-40cc-a0ba-a2125f7a1b36",
+                            Id = "c376a58b-f60b-4f00-ba93-86d5275b9f40",
+                            ConcurrencyStamp = "ea87057b-77c6-4e23-ab81-d7a413713eb0",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -156,18 +156,18 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "c7397cf2-89ad-495a-987b-936dae5f09c5",
-                            RoleId = "1a60b1a8-9fce-4c02-be19-b4b44ab3d4fa"
+                            UserId = "6b2fdfc3-b068-4e85-8393-ea6a97324207",
+                            RoleId = "95c8af7b-a99f-4d4a-b22b-0489fbe786ca"
                         },
                         new
                         {
-                            UserId = "c7397cf2-89ad-495a-987b-936dae5f09c5",
-                            RoleId = "aca824a2-570c-476d-ae80-8f2b9518b6c7"
+                            UserId = "6b2fdfc3-b068-4e85-8393-ea6a97324207",
+                            RoleId = "c376a58b-f60b-4f00-ba93-86d5275b9f40"
                         },
                         new
                         {
-                            UserId = "098c2bdf-539b-43ca-9628-eb19598081ab",
-                            RoleId = "aca824a2-570c-476d-ae80-8f2b9518b6c7"
+                            UserId = "c3688914-cf54-4caf-9ef2-d3b0a2c7f0d8",
+                            RoleId = "c376a58b-f60b-4f00-ba93-86d5275b9f40"
                         });
                 });
 
@@ -212,7 +212,12 @@ namespace Rozklad.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("mapsRouteId")
+                        .HasColumnType("int");
+
                     b.HasKey("BusrouteId");
+
+                    b.HasIndex("mapsRouteId");
 
                     b.ToTable("BusRoutes");
 
@@ -222,7 +227,8 @@ namespace Rozklad.Core.Migrations
                             BusrouteId = 1,
                             IntermediateStops = "gremzc",
                             PlaceOfArrival = "Рівне",
-                            PlaceOfDeparture = "Острог"
+                            PlaceOfDeparture = "Острог",
+                            mapsRouteId = 1
                         });
                 });
 
@@ -249,6 +255,9 @@ namespace Rozklad.Core.Migrations
                     b.Property<int>("Seats")
                         .HasColumnType("int");
 
+                    b.Property<int>("buyTicketId")
+                        .HasColumnType("int");
+
                     b.Property<int>("carrierId")
                         .HasColumnType("int");
 
@@ -258,6 +267,8 @@ namespace Rozklad.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BusrouteId");
+
+                    b.HasIndex("buyTicketId");
 
                     b.HasIndex("carrierId");
 
@@ -274,8 +285,86 @@ namespace Rozklad.Core.Migrations
                             Cost = 75f,
                             DepartureTime = new DateTime(2022, 7, 20, 18, 30, 25, 0, DateTimeKind.Unspecified),
                             Seats = 30,
+                            buyTicketId = 1,
                             carrierId = 1,
                             statusId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Rozklad.Core.BuyTicket", b =>
+                {
+                    b.Property<int>("buyTicketId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("buyTicketId"), 1L, 1);
+
+                    b.Property<int>("AllPrice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BuyerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomerTel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("cardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("numTicket")
+                        .HasColumnType("int");
+
+                    b.HasKey("buyTicketId");
+
+                    b.HasIndex("cardId");
+
+                    b.ToTable("BuyTickets");
+
+                    b.HasData(
+                        new
+                        {
+                            buyTicketId = 1,
+                            AllPrice = 125,
+                            BuyerName = "ilas",
+                            NomerTel = "78685895",
+                            cardId = 1,
+                            numTicket = 3
+                        });
+                });
+
+            modelBuilder.Entity("Rozklad.Core.Card", b =>
+                {
+                    b.Property<int>("cardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cardId"), 1L, 1);
+
+                    b.Property<string>("CVC_kod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateEnd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomerCard")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("cardId");
+
+                    b.ToTable("Cards");
+
+                    b.HasData(
+                        new
+                        {
+                            cardId = 1,
+                            CVC_kod = "234",
+                            DateEnd = "01/26",
+                            NomerCard = "3t46363477"
                         });
                 });
 
@@ -305,6 +394,33 @@ namespace Rozklad.Core.Migrations
                             carrierId = 1,
                             Name = "Ilias",
                             Transport = "autobus"
+                        });
+                });
+
+            modelBuilder.Entity("Rozklad.Core.MapsRoute", b =>
+                {
+                    b.Property<int>("mapsRouteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("mapsRouteId"), 1L, 1);
+
+                    b.Property<float>("CoordinateOfArrival")
+                        .HasColumnType("real");
+
+                    b.Property<float>("CoordinateOfDeparture")
+                        .HasColumnType("real");
+
+                    b.HasKey("mapsRouteId");
+
+                    b.ToTable("MapsRoutes");
+
+                    b.HasData(
+                        new
+                        {
+                            mapsRouteId = 1,
+                            CoordinateOfArrival = 434f,
+                            CoordinateOfDeparture = 123f
                         });
                 });
 
@@ -405,33 +521,33 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c7397cf2-89ad-495a-987b-936dae5f09c5",
+                            Id = "6b2fdfc3-b068-4e85-8393-ea6a97324207",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf775e95-1563-4fc5-b8f7-47737e2c85b3",
+                            ConcurrencyStamp = "b2eaf644-ace3-4d5a-89c4-5d7933c3e8b1",
                             Email = "admin@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ROZKLAD.COM",
                             NormalizedUserName = "ADMIN@ROZKLAD.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBVdpsHySrOIogTUyU0G8JdJEQs/xItgvB1KcU8+/Ix6/02Kvn6p4flS2c1LwU1mLA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOAEN75KbOmbTD6cmlgOyMYFuKTiUlfqVoneqFRPsYgU7Yww/4AouwVkI6bVoakyOQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4a908261-0160-47cd-96d4-706ab36d3826",
+                            SecurityStamp = "ce549884-52e6-4d5e-a096-80b82b8b1fe4",
                             TwoFactorEnabled = false,
                             UserName = "admin@rozklad.com"
                         },
                         new
                         {
-                            Id = "098c2bdf-539b-43ca-9628-eb19598081ab",
+                            Id = "c3688914-cf54-4caf-9ef2-d3b0a2c7f0d8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b2e27d80-4f07-4a29-8482-bc9f3534beb8",
+                            ConcurrencyStamp = "676dcbb6-c6f1-455a-8f22-7df9f3537a2b",
                             Email = "user@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@ROZKLAD.COM",
                             NormalizedUserName = "USER@ROZKLAD.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJr/X7utT5zIwvi6FwpmBGf/WJrWwZRMjcUBKA1hQHjpv83p+fQGJhjWPPgTDGxS6A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECJWa05/xw1jf7ErdIyxqHfd4limZTxd69U8Q1H/i2NtiDFJiAqkkrf7AiSxI4ZTJg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d2a47619-475c-44a4-806e-895b79bb3a45",
+                            SecurityStamp = "980dd4b5-a05b-499a-9c1d-18425056f594",
                             TwoFactorEnabled = false,
                             UserName = "user@rozklad.com"
                         });
@@ -488,11 +604,28 @@ namespace Rozklad.Core.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Rozklad.Core.BusRoute", b =>
+                {
+                    b.HasOne("Rozklad.Core.MapsRoute", "mapsRoute")
+                        .WithMany("BusRoutes")
+                        .HasForeignKey("mapsRouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("mapsRoute");
+                });
+
             modelBuilder.Entity("Rozklad.Core.BusShedule", b =>
                 {
                     b.HasOne("Rozklad.Core.BusRoute", "Busroute")
                         .WithMany("BusShedules")
                         .HasForeignKey("BusrouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Rozklad.Core.BuyTicket", "buyTicket")
+                        .WithMany("BusShedules")
+                        .HasForeignKey("buyTicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -510,9 +643,22 @@ namespace Rozklad.Core.Migrations
 
                     b.Navigation("Busroute");
 
+                    b.Navigation("buyTicket");
+
                     b.Navigation("carrier");
 
                     b.Navigation("status");
+                });
+
+            modelBuilder.Entity("Rozklad.Core.BuyTicket", b =>
+                {
+                    b.HasOne("Rozklad.Core.Card", "card")
+                        .WithMany("BuyTickets")
+                        .HasForeignKey("cardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("card");
                 });
 
             modelBuilder.Entity("Rozklad.Core.BusRoute", b =>
@@ -520,9 +666,24 @@ namespace Rozklad.Core.Migrations
                     b.Navigation("BusShedules");
                 });
 
+            modelBuilder.Entity("Rozklad.Core.BuyTicket", b =>
+                {
+                    b.Navigation("BusShedules");
+                });
+
+            modelBuilder.Entity("Rozklad.Core.Card", b =>
+                {
+                    b.Navigation("BuyTickets");
+                });
+
             modelBuilder.Entity("Rozklad.Core.Carrier", b =>
                 {
                     b.Navigation("BusShedules");
+                });
+
+            modelBuilder.Entity("Rozklad.Core.MapsRoute", b =>
+                {
+                    b.Navigation("BusRoutes");
                 });
 
             modelBuilder.Entity("Rozklad.Core.Status", b =>
