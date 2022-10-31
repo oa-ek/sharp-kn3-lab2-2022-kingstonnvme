@@ -27,7 +27,7 @@ namespace Rozklad.Repos
 
             var shedules = new List<BusSheduleReadDto>();
 
-             foreach (var u in  _ctx.BusShedules.ToList())
+             foreach (var u in  _ctx.BusShedules.Include(x => x.Busroute).ToList())
              {
                
 
@@ -35,6 +35,7 @@ namespace Rozklad.Repos
                 {
                     DepartureTime = u.DepartureTime,
                    
+                    Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, IntermediateStops = u.Busroute.IntermediateStops},
                      Seats = u.Seats,
                      Cost = u.Cost,
                      ArrivalTime = u.ArrivalTime,

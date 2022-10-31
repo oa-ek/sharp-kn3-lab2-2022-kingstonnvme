@@ -12,7 +12,7 @@ namespace Rozklad.Repos.Dto
     {
         public int Id { get; set; }
         public int BusrouteId { get; set; }
-        public string Busrooute { get; set; }
+        public BusRouteReadDto Busrooute { get; set; }
         public DateTime DepartureTime { get; set; }
         public int Seats { get; set; }
         public DateTime ArrivalTime { get; set; }
