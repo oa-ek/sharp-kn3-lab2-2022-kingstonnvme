@@ -132,6 +132,7 @@ Seats = 30,
 Cost = 75,
 buyTicketId = 1
 
+
 });
 
              builder.Entity<Carrier>().HasData(

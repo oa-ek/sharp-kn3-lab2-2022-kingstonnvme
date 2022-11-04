@@ -22,8 +22,8 @@ namespace Rozklad.Core
         public string PlaceOfArrival { get; set; }
 
         public int mapsRouteId { get; set; }
-        public MapsRoute mapsRoute { get; set; }
+        public MapsRoute? mapsRoute { get; set; }
 
-        public virtual ICollection<BusShedule> BusShedules { get; set; }
+        public virtual ICollection<BusShedule>? BusShedules { get; set; }
     }
 }

@@ -16,17 +16,19 @@ namespace Rozklad.Core
         public DateTime DepartureTime { get; set; }
 
         public int BusrouteId { get; set; }
-        public BusRoute Busroute { get; set; }
-        public int Seats { get; set; }
+        public BusRoute? Busroute { get; set; }
+
+        public MapsRoute? mapsRoute { get; set; }
+        public int? Seats { get; set; }
 
         public int carrierId { get; set; }
-        public Carrier carrier { get; set; }
+        public Carrier? carrier { get; set; }
         public int statusId { get; set; }
-        public Status status { get; set; }
+        public Status? status { get; set; }
         public DateTime ArrivalTime { get; set; }
-        public float Cost { get; set; }
+        public float? Cost { get; set; }
 
         public int buyTicketId { get; set; }
-        public BuyTicket buyTicket { get; set; }
+        public BuyTicket? buyTicket { get; set; }
     }
 }
