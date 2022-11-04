@@ -18,7 +18,7 @@ namespace Rozklad.Core
         public int BusrouteId { get; set; }
         public BusRoute? Busroute { get; set; }
 
-        public MapsRoute? mapsRoute { get; set; }
+       // public MapsRoute? mapsRoute { get; set; }
         public int? Seats { get; set; }
 
         public int carrierId { get; set; }

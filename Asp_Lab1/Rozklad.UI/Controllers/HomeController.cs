@@ -33,9 +33,10 @@ namespace Rozklad.UI.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(BusSheduleCreateDto model)
         {
-           //if(ModelState.IsValid)
+            //if(ModelState.IsValid)
             //{
-                BusShedule shedule = await busRepository.CreateBusSheduleAsync(model.DepartureTime, model.Busroute,model.mapsRoute, model.Seats, model.carrier, model.status, model.ArrivalTime, model.Cost);
+            
+            BusShedule shedule = await busRepository.CreateBusSheduleAsync(model.DepartureTime, model.Busroute,model.mapsRoute, model.Seats, model.carrier, model.status, model.ArrivalTime, model.Cost);
                 return RedirectToAction("Index", "Home", new { id = shedule.Id });
             //}
 

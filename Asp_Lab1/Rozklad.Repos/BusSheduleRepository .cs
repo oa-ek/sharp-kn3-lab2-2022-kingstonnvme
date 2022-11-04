@@ -29,22 +29,25 @@ namespace Rozklad.Repos
 
         public async Task<BusShedule> CreateBusSheduleAsync(DateTime Departuretime , BusRoute? busRoute,MapsRoute? mapsRoute, int? seats, Carrier? carrier, Status? status, DateTime Arrivaltime, float cost)
         {
-            var newShedule = new BusShedule
+          var newShedule = new BusShedule
             {
                 DepartureTime = Departuretime,
-                mapsRoute = mapsRoute,
+                //mapsRoute = mapsRoute,
                 Busroute = busRoute,             
                 Seats = seats,
                 carrier = carrier,
               status = status,
                 ArrivalTime = Arrivaltime,
-                Cost = cost
-            };
+                Cost = cost,
+                buyTicketId=1
+          };
+
+    
             //await shedules.Add(newShedule);
             //await _ctx.AddAsync(newShedule);
             //return await _ctx.BusShedules.FirstAsync(x => x.DepartureTime == Departuretime );
-
-            _ctx.BusShedules.Add(newShedule);
+        
+           _ctx.BusShedules.Add(newShedule);
             await _ctx.SaveChangesAsync();
             return await _ctx.BusShedules.FirstAsync(x => x.DepartureTime == Departuretime);
         }

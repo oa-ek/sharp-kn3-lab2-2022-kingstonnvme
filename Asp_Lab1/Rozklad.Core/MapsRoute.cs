@@ -19,6 +19,6 @@ namespace Rozklad.Core
 
         public float CoordinateOfArrival { get; set; }
 
-        public virtual ICollection<BusRoute>? BusRoutes { get; set; }
+       // public virtual ICollection<BusRoute>? BusRoutes { get; set; }
     }
 }

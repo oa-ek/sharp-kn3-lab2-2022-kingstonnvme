@@ -90,7 +90,7 @@ namespace Rozklad.Core
                  PlaceOfDeparture = "Острог",
                  IntermediateStops = "gremzc",
                  PlaceOfArrival = "Рівне",
-                 mapsRouteId = 1
+//mapsRouteId = 1
              });
 
             DateTime date1 = new DateTime(2022, 7, 20, 18, 30, 25);

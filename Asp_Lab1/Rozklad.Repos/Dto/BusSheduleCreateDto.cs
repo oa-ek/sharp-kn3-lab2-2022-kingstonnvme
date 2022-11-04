@@ -13,6 +13,7 @@ namespace Rozklad.Repos.Dto
         public int Id { get; set; }
         public int BusrouteId { get; set; }
 
+        public int mapsRouteId {get; set; }
         public int carrierId { get; set; }
         public int statusId { get; set; }
 
