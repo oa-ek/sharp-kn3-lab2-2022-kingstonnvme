@@ -13,12 +13,12 @@ namespace Rozklad.Core
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-        public int mapsRouteId { get; set; }
+        public int? mapsRouteId { get; set; }
 
         public float CoordinateOfDeparture { get; set; }
 
         public float CoordinateOfArrival { get; set; }
 
-        public virtual ICollection<BusRoute> BusRoutes { get; set; }
+       // public virtual ICollection<BusRoute>? BusRoutes { get; set; }
     }
 }

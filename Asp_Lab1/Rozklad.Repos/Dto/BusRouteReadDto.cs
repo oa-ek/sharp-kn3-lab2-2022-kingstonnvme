@@ -18,5 +18,8 @@ namespace Rozklad.Repos.Dto
 
         public string PlaceOfArrival { get; set; }
 
+        public int mapsRouteId { get; set; }
+        public MapsRouteReadDto mapsRoute { get; set; }
+
     }
 }

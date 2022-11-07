@@ -9,6 +9,8 @@ namespace Rozklad.Repos.Dto
 {
    public class UserCreateDto
     {
+        
+
         [Required(ErrorMessage ="Введіть емейл")]
         [StringLength(128, ErrorMessage = "Must be between 5 and 16 characters", MinimumLength = 5)]
         [RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$",ErrorMessage ="Must be a valid email")]

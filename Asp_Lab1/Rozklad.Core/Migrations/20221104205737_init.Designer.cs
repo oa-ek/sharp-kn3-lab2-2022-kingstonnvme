@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rozklad.Core;
 
@@ -11,9 +12,10 @@ using Rozklad.Core;
 namespace Rozklad.Core.Migrations
 {
     [DbContext(typeof(RozkladContext))]
-    partial class RozkladContextModelSnapshot : ModelSnapshot
+    [Migration("20221104205737_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "95c8af7b-a99f-4d4a-b22b-0489fbe786ca",
-                            ConcurrencyStamp = "25cc7aeb-27a7-4c82-836a-f7740c9b2684",
+                            Id = "b4788677-bceb-4b4e-9681-c5fd6a191457",
+                            ConcurrencyStamp = "cd67d0a1-8c9e-4e05-b416-c7ab01214ff0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c376a58b-f60b-4f00-ba93-86d5275b9f40",
-                            ConcurrencyStamp = "ea87057b-77c6-4e23-ab81-d7a413713eb0",
+                            Id = "9c946f41-54b1-40c2-99a8-8bebcf5040c3",
+                            ConcurrencyStamp = "cf9d18e3-4609-44de-8f60-fe15ea3b48fb",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -156,18 +158,18 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6b2fdfc3-b068-4e85-8393-ea6a97324207",
-                            RoleId = "95c8af7b-a99f-4d4a-b22b-0489fbe786ca"
+                            UserId = "4d45a300-2822-461c-8998-833fff9eda30",
+                            RoleId = "b4788677-bceb-4b4e-9681-c5fd6a191457"
                         },
                         new
                         {
-                            UserId = "6b2fdfc3-b068-4e85-8393-ea6a97324207",
-                            RoleId = "c376a58b-f60b-4f00-ba93-86d5275b9f40"
+                            UserId = "4d45a300-2822-461c-8998-833fff9eda30",
+                            RoleId = "9c946f41-54b1-40c2-99a8-8bebcf5040c3"
                         },
                         new
                         {
-                            UserId = "c3688914-cf54-4caf-9ef2-d3b0a2c7f0d8",
-                            RoleId = "c376a58b-f60b-4f00-ba93-86d5275b9f40"
+                            UserId = "74aab0ae-950b-46ba-be5d-ed5956d08510",
+                            RoleId = "9c946f41-54b1-40c2-99a8-8bebcf5040c3"
                         });
                 });
 
@@ -212,12 +214,7 @@ namespace Rozklad.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("mapsRouteId")
-                        .HasColumnType("int");
-
                     b.HasKey("BusrouteId");
-
-                    b.HasIndex("mapsRouteId");
 
                     b.ToTable("BusRoutes");
 
@@ -227,8 +224,7 @@ namespace Rozklad.Core.Migrations
                             BusrouteId = 1,
                             IntermediateStops = "gremzc",
                             PlaceOfArrival = "Рівне",
-                            PlaceOfDeparture = "Острог",
-                            mapsRouteId = 1
+                            PlaceOfDeparture = "Острог"
                         });
                 });
 
@@ -246,13 +242,13 @@ namespace Rozklad.Core.Migrations
                     b.Property<int>("BusrouteId")
                         .HasColumnType("int");
 
-                    b.Property<float>("Cost")
+                    b.Property<float?>("Cost")
                         .HasColumnType("real");
 
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Seats")
+                    b.Property<int?>("Seats")
                         .HasColumnType("int");
 
                     b.Property<int>("buyTicketId")
@@ -399,11 +395,11 @@ namespace Rozklad.Core.Migrations
 
             modelBuilder.Entity("Rozklad.Core.MapsRoute", b =>
                 {
-                    b.Property<int>("mapsRouteId")
+                    b.Property<int?>("mapsRouteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("mapsRouteId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("mapsRouteId"), 1L, 1);
 
                     b.Property<float>("CoordinateOfArrival")
                         .HasColumnType("real");
@@ -521,33 +517,33 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6b2fdfc3-b068-4e85-8393-ea6a97324207",
+                            Id = "4d45a300-2822-461c-8998-833fff9eda30",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b2eaf644-ace3-4d5a-89c4-5d7933c3e8b1",
+                            ConcurrencyStamp = "c2a68970-3e2b-4440-a0aa-16cc0ba49bad",
                             Email = "admin@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ROZKLAD.COM",
                             NormalizedUserName = "ADMIN@ROZKLAD.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOAEN75KbOmbTD6cmlgOyMYFuKTiUlfqVoneqFRPsYgU7Yww/4AouwVkI6bVoakyOQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFYtXi3B4oZppcHeMUEr8IfkxyBHFr/yhfveOXNERU+XQqrYjhPhu+/VV60llQGFkg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ce549884-52e6-4d5e-a096-80b82b8b1fe4",
+                            SecurityStamp = "7560ed76-5f22-48e1-a0e0-63e0c1b1317c",
                             TwoFactorEnabled = false,
                             UserName = "admin@rozklad.com"
                         },
                         new
                         {
-                            Id = "c3688914-cf54-4caf-9ef2-d3b0a2c7f0d8",
+                            Id = "74aab0ae-950b-46ba-be5d-ed5956d08510",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "676dcbb6-c6f1-455a-8f22-7df9f3537a2b",
+                            ConcurrencyStamp = "c7e5037e-b11b-4e79-89fe-d98f58716d12",
                             Email = "user@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@ROZKLAD.COM",
                             NormalizedUserName = "USER@ROZKLAD.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECJWa05/xw1jf7ErdIyxqHfd4limZTxd69U8Q1H/i2NtiDFJiAqkkrf7AiSxI4ZTJg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN43IU/5gBaqj9vAXuBFOs+7tgNwTP8BXpfXp6PDYc24yBAc0TUWdimxl/e+x4Yymg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "980dd4b5-a05b-499a-9c1d-18425056f594",
+                            SecurityStamp = "a6f3607a-7f17-4d37-8e5f-991d96df3e20",
                             TwoFactorEnabled = false,
                             UserName = "user@rozklad.com"
                         });
@@ -602,17 +598,6 @@ namespace Rozklad.Core.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Rozklad.Core.BusRoute", b =>
-                {
-                    b.HasOne("Rozklad.Core.MapsRoute", "mapsRoute")
-                        .WithMany("BusRoutes")
-                        .HasForeignKey("mapsRouteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("mapsRoute");
                 });
 
             modelBuilder.Entity("Rozklad.Core.BusShedule", b =>
@@ -679,11 +664,6 @@ namespace Rozklad.Core.Migrations
             modelBuilder.Entity("Rozklad.Core.Carrier", b =>
                 {
                     b.Navigation("BusShedules");
-                });
-
-            modelBuilder.Entity("Rozklad.Core.MapsRoute", b =>
-                {
-                    b.Navigation("BusRoutes");
                 });
 
             modelBuilder.Entity("Rozklad.Core.Status", b =>
