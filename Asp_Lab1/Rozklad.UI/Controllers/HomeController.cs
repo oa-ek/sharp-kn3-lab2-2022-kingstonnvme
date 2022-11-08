@@ -44,24 +44,33 @@ namespace Rozklad.UI.Controllers
 
         }
 
-      //  [HttpGet]
-
-        /*public async Task<IActionResult> Delete(string id)
+       [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View(await usersRepository.GetUsersAsync(id));
+           
+            if (id != 0)
+            {
+                return View(await busRepository.GetBusSheduleAsync(id));
+            }
+            return NotFound();
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> ConfirmDelete(string id)
+        public async Task<IActionResult> ConfirmDelete(int? id)
         {
-            await usersRepository.DeleteUserAsync(id);
+            
+            if (id != 0)
+            {
+                await busRepository.DeleteBusSheduleAsync(id);
             return RedirectToAction("Index");
         }
+    return NotFound();
+    }
         public IActionResult Privacy()
         {
             return View();
-      }*/
+      }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
