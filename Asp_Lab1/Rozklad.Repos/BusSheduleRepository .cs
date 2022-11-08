@@ -53,16 +53,14 @@ namespace Rozklad.Repos
         }
 
 
-       /* public async Task DeleteBusSheduleAsync(string id)
+        public async Task DeleteBusSheduleAsync(int? id)
         {
-            var shedule = _ctx.BusShedules.Find(id);
+            var shedule =  _ctx.BusShedules.Find(id);
 
-            if ((await userManager.GetRolesAsync(user)).Any())
-            {
-                await userManager.RemoveFromRolesAsync(user, await userManager.GetRolesAsync(user));
-            }
-            await userManager.DeleteAsync(user);
-        }*/
+       
+             _ctx.BusShedules.Remove(shedule);
+            await _ctx.SaveChangesAsync();
+        }
 
 
         public async Task<IEnumerable<BusSheduleReadDto>> GetBusSheduleAsync()
@@ -77,6 +75,7 @@ namespace Rozklad.Repos
 
                 var busDto = new BusSheduleReadDto
                 {
+                    Id = u.Id,
                     DepartureTime = u.DepartureTime,
                    
                     Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, PlaceOfDeparture = u.Busroute.PlaceOfDeparture, IntermediateStops = u.Busroute.IntermediateStops, PlaceOfArrival = u.Busroute.PlaceOfArrival},
@@ -97,28 +96,26 @@ namespace Rozklad.Repos
             return  shedules;
          }
 
-       /* public async Task<UserReadDto> GetUsersAsync(string id)
+        public async Task<BusSheduleReadDto> GetBusSheduleAsync(int? id)
         {
-            var u = await _ctx.Users.FirstAsync(x => x.Id == id);
+            var u = await _ctx.BusShedules.FirstAsync(x => x.Id == id);
 
-
-            var userDto = new UserReadDto
+            
+            var busDto = new BusSheduleReadDto
             {
                 Id = u.Id,
-                Email = u.Email,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                IsConfirmed = u.EmailConfirmed,
-                Roles = new List<IdentityRole>()
+                DepartureTime = u.DepartureTime,
+
+               // Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, PlaceOfDeparture = u.Busroute.PlaceOfDeparture, IntermediateStops = u.Busroute.IntermediateStops, PlaceOfArrival = u.Busroute.PlaceOfArrival },
+                Seats = u.Seats,
+               // carier = new CarrierReadDto { carrierId = u.carrierId, Name = u.carrier.Name, Transport = u.carrier.Transport },
+
+                Cost = u.Cost,
+                ArrivalTime = u.ArrivalTime,
+               // status = new StatusReadDto { statusId = u.statusId, StatusValue = u.status.StatusValue }
             };
-
-            foreach (var role in await userManager.GetRolesAsync(u))
-            {
-                userDto.Roles.Add(await _ctx.Roles.FirstAsync(x => x.Name.ToLower() == role.ToLower()));
-
-            }
-            return userDto;
-        }*/
+            return busDto;
+        }
 
 
     }
