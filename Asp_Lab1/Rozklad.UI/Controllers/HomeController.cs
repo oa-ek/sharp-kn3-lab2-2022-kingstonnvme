@@ -10,12 +10,13 @@ namespace Rozklad.UI.Controllers
     
     public class HomeController : Controller
     {
-       
+        private readonly RozkladContext _ctx;
         private readonly BusSheduleRepository busRepository;
 
-        public HomeController(BusSheduleRepository busRepository)
+        public HomeController(BusSheduleRepository busRepository, RozkladContext ctx)
         {
             this.busRepository = busRepository;
+            _ctx = ctx;
         }
 
         public async Task<IActionResult> Index()
@@ -67,6 +68,29 @@ namespace Rozklad.UI.Controllers
         }
     return NotFound();
     }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            
+            return View(await busRepository.GetBusSheduleEditAsync(id));
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(BusSheduleReadDto model)
+        {
+           // if (ModelState.IsValid)
+          //  {
+                await busRepository.UpdateAsync(model);
+                return RedirectToAction("Index");
+          //  }
+          //  return View(model);
+
+        
+        }
+
         public IActionResult Privacy()
         {
             return View();

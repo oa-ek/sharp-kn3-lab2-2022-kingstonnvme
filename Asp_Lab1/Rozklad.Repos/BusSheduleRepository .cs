@@ -11,6 +11,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Rozklad.Repos
@@ -115,6 +116,77 @@ namespace Rozklad.Repos
                // status = new StatusReadDto { statusId = u.statusId, StatusValue = u.status.StatusValue }
             };
             return busDto;
+        }
+
+        public async Task<BusSheduleReadDto> GetBusSheduleEditAsync(int? id)
+        {
+            var u = await _ctx.BusShedules.Include(x => x.Busroute).Include(x => x.carrier).Include(x => x.status).FirstAsync(x => x.Id == id);
+
+
+            var busDto = new BusSheduleReadDto
+            {
+                Id = u.Id,
+                DepartureTime = u.DepartureTime,
+
+                 Busrooute = new BusRouteReadDto { BusrouteId = u.Id, PlaceOfDeparture = u.Busroute.PlaceOfDeparture, IntermediateStops = u.Busroute.IntermediateStops, PlaceOfArrival = u.Busroute.PlaceOfArrival },
+                Seats = u.Seats,
+                 carier = new CarrierReadDto { carrierId = u.Id, Name = u.carrier.Name, Transport = u.carrier.Transport },
+
+                Cost = u.Cost,
+                ArrivalTime = u.ArrivalTime,
+                 status = new StatusReadDto { statusId = u.Id, StatusValue = u.status.StatusValue }
+            };
+            return busDto;
+        }
+
+        public async Task UpdateAsync(BusSheduleReadDto model)
+        {
+            var busShedule = await _ctx.BusShedules.Include(x => x.Busroute).Include(x => x.carrier).Include(x => x.status).FirstAsync(x => x.Id == model.Id);
+
+
+            if (busShedule.DepartureTime != model.DepartureTime)
+            {
+                busShedule.DepartureTime = model.DepartureTime;
+            }
+            if (busShedule.Busroute.PlaceOfDeparture != model.Busrooute.PlaceOfDeparture)
+            {
+                busShedule.Busroute.PlaceOfDeparture = model.Busrooute.PlaceOfDeparture;
+            }
+            if (busShedule.Busroute.IntermediateStops != model.Busrooute.IntermediateStops)
+            {
+                busShedule.Busroute.IntermediateStops = model.Busrooute.IntermediateStops;
+            }
+            if (busShedule.Busroute.PlaceOfArrival != model.Busrooute.PlaceOfArrival)
+            {
+                busShedule.Busroute.PlaceOfArrival = model.Busrooute.PlaceOfArrival;
+            }
+            if (busShedule.Seats != model.Seats)
+            {
+                busShedule.Seats = model.Seats;
+            }
+            if (busShedule.carrier.Transport != model.carier.Transport)
+            {
+                busShedule.carrier.Transport = model.carier.Transport;
+            }
+            if (busShedule.carrier.Name != model.carier.Name)
+            {
+                busShedule.carrier.Name = model.carier.Name;
+            }
+            if (busShedule.status.StatusValue != model.status.StatusValue)
+            {
+                busShedule.status.StatusValue = model.status.StatusValue;
+            }
+            if (busShedule.ArrivalTime != model.ArrivalTime)
+            {
+                busShedule.ArrivalTime = model.ArrivalTime;
+            }
+            if (busShedule.Cost != model.Cost)
+            {
+                busShedule.Cost = model.Cost;
+            }
+
+            _ctx.BusShedules.Update(busShedule);
+            await _ctx.SaveChangesAsync();
         }
 
 
