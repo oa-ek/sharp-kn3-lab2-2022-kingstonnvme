@@ -1,47 +1,60 @@
 ﻿@using Rozklad.Repos.Dto
 @model IEnumerable<BusSheduleReadDto>
 
-<div class="float-end">
-    <a href="/home/create" class="btn btn-outline-primary">Додати інформацію</a>
+@{
+    Layout = "~/Views/Shared/_LayoutDashmin.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+        <div class="col-md-6 text-center">
+            <div class="float-end">
+                <a href="/home/create" class="btn btn-outline-primary">Додати інформацію</a>
+            </div>
+
+            <h1>Розклад руху автобусів!</h1>
+            <hr />
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Departure Time</th>
+                        <th>Bus route</th>
+                        <th>Seats</th>
+                        <th>Carrier</th>
+                        <th>Status</th>
+                        <th>Arrival time</th>
+                        <th>Cost</th>
+                        <th>Квитки</th>
+                        <th>btn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in Model)
+                    {
+                        <tr>
+                            <td>@u.DepartureTime</td>
+                            <td>
+                                @u.Busrooute.PlaceOfDeparture - @u.Busrooute.IntermediateStops - @u.Busrooute.PlaceOfArrival
+                                <a href="/home/maps/@u.Id" class=" btn btn-warning">Карта</a>
+                            </td>
+                            <td>@u.Seats</td>
+                            <td>@u.carier.Name - @u.carier.Transport</td>
+                            <td>@u.status.StatusValue</td>
+                            <td>@u.ArrivalTime</td>
+                            <td>@u.Cost</td>
+                            <td> <a href="/home/buy/@u.Id" class=" btn btn-warning">Придбати квиток</a></td>
+                            <td>
+                                <a href="/home/edit/@u.Id" class=" btn btn-warning">Редагувати</a>
+                                <a href="/home/delete/@u.Id" class=" btn btn-danger">Видалити</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <
+            </table>
+        </div>
+    </div>
 </div>
 
-<h1>Розклад руху автобусів!</h1>
-<hr />
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Departure Time</th>
-            <th>Bus route</th>
-            <th>Seats</th>
-            <th>Carrier</th>
-            <th>Status</th>
-            <th>Arrival time</th>
-            <th>Cost</th>
-            <th>Квитки</th>
-            <th>btn</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var u in Model)
-        {
-            <tr>
-                <td>@u.DepartureTime</td>
-                <td>@u.Busrooute.PlaceOfDeparture - @u.Busrooute.IntermediateStops - @u.Busrooute.PlaceOfArrival
-                    <a href="/home/maps/@u.Id" class=" btn btn-warning">Карта</a>
-                </td>
-                <td>@u.Seats</td>
-                <td>@u.carier.Name - @u.carier.Transport</td>
-                <td>@u.status.StatusValue</td>
-                <td>@u.ArrivalTime</td>
-                <td>@u.Cost</td>
-                <td> <a href="/home/buy/@u.Id" class=" btn btn-warning">Придбати квиток</a></td>
-                <td>
-                    <a href="/home/edit/@u.Id" class=" btn btn-warning">Редагувати</a>
-                    <a href="/home/delete/@u.Id" class=" btn btn-danger">Видалити</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-    <
-</table>
