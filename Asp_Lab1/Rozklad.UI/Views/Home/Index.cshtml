@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutDashmin.cshtml";
 }
 
-<div class="container-fluid pt-4 px-4">
+<div class="container-fluid pt-4 px-100">
     <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
         <div class="col-md-6 text-center">
             <div class="float-end">
@@ -36,7 +36,7 @@
                             <td>@u.DepartureTime</td>
                             <td>
                                 @u.Busrooute.PlaceOfDeparture - @u.Busrooute.IntermediateStops - @u.Busrooute.PlaceOfArrival
-                                <a href="/home/maps/@u.Id" class=" btn btn-warning">Карта</a>
+                                <a href="/home/map/@u.Id" class=" btn btn-warning">Карта</a>
                             </td>
                             <td>@u.Seats</td>
                             <td>@u.carier.Name - @u.carier.Transport</td>
