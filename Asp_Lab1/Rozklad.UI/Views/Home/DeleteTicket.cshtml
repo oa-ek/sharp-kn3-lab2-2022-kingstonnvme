@@ -1,6 +1,6 @@
 ﻿@using Rozklad.Core
 @using Rozklad.Repos.Dto
-@model BusSheduleReadDto
+@model TicketReadDto
 @{
 }
 
@@ -12,12 +12,14 @@
 <hr />
 
 
+<p>@Model.BuyerName</p>
+<p>@Model.NomerTel</p>
 
 <hr />
 
 <form asp-action="ConfirmTicketDelete" class=" col-md-4">
         @Html.AntiForgeryToken()
-    <input asp-for="Id" type="hidden" />
+    <input asp-for="buyTicketId" type="hidden" />
     <button type="submit" class=" btn btn-danger">Видалити замовлення!!!</button>
     <a href="/home/ticket" class="btn btn-outline-primary">Повернутися до списку або відмінити</a>
         <</form>

@@ -1,5 +1,5 @@
 ﻿@using Rozklad.Repos.Dto
-@model IEnumerable<BusSheduleReadDto>
+@model IEnumerable<TicketReadDto>
 
 @{
    // Layout = "~/Views/Shared/_LayoutDashmin.cshtml";
@@ -25,15 +25,15 @@
                     @foreach (var u in Model)
                     {
                         <tr>
-                            <td>@u.ticket.BuyerName</td>
-                            <td>@u.ticket.numTicket</td>
-                            <td>@u.ticket.NomerTel</td>
-                            <td>@u.ticket.AllPrice</td>
+                            <td>@u.BuyerName</td>
+                            <td>@u.numTicket</td>
+                            <td>@u.NomerTel</td>
+                            <td>@u.AllPrice</td>
                             <td>
-                                @u.Busrooute.PlaceOfDeparture - @u.Busrooute.IntermediateStops - @u.Busrooute.PlaceOfArrival                         
+                              ostrog - rivne - kyiv                       
                             </td>                 
                             <td>                                
-                                <a href="/home/DeleteTicket/@u.Id" class=" btn btn-danger">Видалити</a>
+                                <a href="/home/DeleteTicket/@u.buyTicketId" class=" btn btn-danger">Видалити</a>
                             </td>
                         </tr>
                     }

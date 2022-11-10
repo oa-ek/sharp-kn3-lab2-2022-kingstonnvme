@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlTypes;
 
-namespace Rozklad.Core
+namespace Rozklad.Repos.Dto
 {
     public class TicketReadDto
     {

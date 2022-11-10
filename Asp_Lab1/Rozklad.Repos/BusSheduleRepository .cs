@@ -128,25 +128,61 @@ namespace Rozklad.Repos
             return  shedules;
          }
 
+        public async Task<IEnumerable<TicketReadDto>> GetTicketAsync()
+        {
+            var tickets = new List<TicketReadDto>();
+
+            foreach (var u in _ctx.BuyTickets.ToList())
+            {
+                var tikDto = new TicketReadDto
+                {
+                    buyTicketId = u.buyTicketId,
+                    BuyerName = u.BuyerName,
+                    numTicket = u.numTicket,
+                    NomerTel = u.NomerTel,
+                    AllPrice = u.AllPrice            
+               };
+                tickets.Add(tikDto);
+            }
+            return tickets;
+        }
+
         public async Task<BusSheduleReadDto> GetBusSheduleAsync(int? id)
         {
             var u = await _ctx.BusShedules.FirstAsync(x => x.Id == id);
 
-            
+
             var busDto = new BusSheduleReadDto
             {
                 Id = u.Id,
                 DepartureTime = u.DepartureTime,
 
-               // Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, PlaceOfDeparture = u.Busroute.PlaceOfDeparture, IntermediateStops = u.Busroute.IntermediateStops, PlaceOfArrival = u.Busroute.PlaceOfArrival },
+                // Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, PlaceOfDeparture = u.Busroute.PlaceOfDeparture, IntermediateStops = u.Busroute.IntermediateStops, PlaceOfArrival = u.Busroute.PlaceOfArrival },
                 Seats = u.Seats,
-               // carier = new CarrierReadDto { carrierId = u.carrierId, Name = u.carrier.Name, Transport = u.carrier.Transport },
+                // carier = new CarrierReadDto { carrierId = u.carrierId, Name = u.carrier.Name, Transport = u.carrier.Transport },
 
                 Cost = u.Cost,
                 ArrivalTime = u.ArrivalTime,
-               // status = new StatusReadDto { statusId = u.statusId, StatusValue = u.status.StatusValue }
+                // status = new StatusReadDto { statusId = u.statusId, StatusValue = u.status.StatusValue }
             };
             return busDto;
+        }
+
+        public async Task<TicketReadDto> GetTicketAsync(int? id)
+        {
+            var u = await _ctx.BuyTickets.FirstAsync(x => x.buyTicketId == id);
+
+            
+            var tikDto = new TicketReadDto
+            {
+                buyTicketId = u.buyTicketId,
+                BuyerName = u.BuyerName,
+                numTicket =u.numTicket,
+                NomerTel = u.NomerTel,
+                AllPrice = u.AllPrice
+               
+            };
+            return tikDto;
         }
 
         public async Task<BusSheduleReadDto> GetBusSheduleEditAsync(int? id)

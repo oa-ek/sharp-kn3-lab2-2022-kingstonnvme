@@ -26,7 +26,7 @@ namespace Rozklad.UI.Controllers
 
         public async Task<IActionResult> Ticket()
         {
-            return View(await busRepository.GetBusSheduleAsync());
+            return View(await busRepository.GetTicketAsync());
         }
 
         [HttpGet]
@@ -57,7 +57,7 @@ namespace Rozklad.UI.Controllers
 
             if (id != 0)
             {
-                return View(await busRepository.GetBusSheduleAsync(id));
+                return View(await busRepository.GetTicketAsync(id));
             }
             return NotFound();
         }
