@@ -1,0 +1,59 @@
+﻿@using Rozklad.Repos.Dto
+@model BuyTicketCreateDto
+
+<div class="float-end">
+    <a href="/home/ticket" class="btn btn-outline-primary">Повернутися до списку</a>
+</div>
+
+<h1>Замовити квиток</h1>
+<hr />
+
+<div class=" row">
+    <form asp-action="AddTicket" class=" col-md-4">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label asp-for="buyerName" class="form-label"></label>
+            <input asp-for="buyerName" class=" form-control" />
+            <span asp-validation-for="buyerName" class=" text-danger"></span>
+        </div>
+       
+        <div class="mb-3">
+            <label asp-for="numTicket" class="form-label"></label>
+            <input asp-for="numTicket" class=" form-control" />
+            <span asp-validation-for="numTicket" class=" text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="nomerTel" class="form-label"></label>
+            <input asp-for="nomerTel" class=" form-control" />
+            <span asp-validation-for="nomerTel" class=" text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="card.NomerCard" class="form-label"></label>
+            <input asp-for="card.NomerCard" class=" form-control" />
+            <span asp-validation-for="card.NomerCard" class=" text-danger"></span>
+        </div>
+    
+        <div class="mb-3">
+            <label asp-for="card.CVC_kod" class="form-label"></label>
+            <input asp-for="card.CVC_kod" class=" form-control" />
+            <span asp-validation-for="card.CVC_kod" class=" text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="card.DateEnd" class="form-label"></label>
+            <input asp-for="card.DateEnd" type="text" class=" form-control" />
+            <span asp-validation-for="card.DateEnd" class=" text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Створити</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
+

@@ -24,6 +24,59 @@ namespace Rozklad.UI.Controllers
             return View(await busRepository.GetBusSheduleAsync());
         }
 
+        public async Task<IActionResult> Ticket()
+        {
+            return View(await busRepository.GetBusSheduleAsync());
+        }
+
+        [HttpGet]
+        public IActionResult AddTicket()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> AddTicket(BuyTicketCreateDto model)
+        {
+            //if(ModelState.IsValid)
+            //{
+            model.Allprice = model.numTicket * 50;
+            BuyTicket ticket = await busRepository.CreateTicketAsync(model.buyerName, model.numTicket, model.nomerTel, model.Allprice, model.card);
+            return RedirectToAction("Ticket", "Home", new { id = ticket.buyTicketId });
+            //}
+
+            //return View(model);
+
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteTicket(int? id)
+        {
+
+            if (id != 0)
+            {
+                return View(await busRepository.GetBusSheduleAsync(id));
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> ConfirmTicketDelete(int? id)
+        {
+
+            if (id != 0)
+            {
+                await busRepository.DeleteTicketAsync(id);
+                return RedirectToAction("Ticket");
+            }
+            return NotFound();
+        }
+
+
+
         [HttpGet]
         public IActionResult Create()
         {

@@ -1,0 +1,47 @@
+﻿@using Rozklad.Repos.Dto
+@model IEnumerable<BusSheduleReadDto>
+
+@{
+   // Layout = "~/Views/Shared/_LayoutDashmin.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+        <div class="col-md-6 text-center">      
+            <h1>Інформація про замовлення!</h1>
+            <hr />
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Замовник</th>
+                        <th>Кількість квитків</th>
+                        <th>Номер телефону</th>
+                        <th>Ціна</th>
+                        <th>Маршрут</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in Model)
+                    {
+                        <tr>
+                            <td>@u.ticket.BuyerName</td>
+                            <td>@u.ticket.numTicket</td>
+                            <td>@u.ticket.NomerTel</td>
+                            <td>@u.ticket.AllPrice</td>
+                            <td>
+                                @u.Busrooute.PlaceOfDeparture - @u.Busrooute.IntermediateStops - @u.Busrooute.PlaceOfArrival                         
+                            </td>                 
+                            <td>                                
+                                <a href="/home/DeleteTicket/@u.Id" class=" btn btn-danger">Видалити</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <
+            </table>
+        </div>
+    </div>
+</div>
+
+

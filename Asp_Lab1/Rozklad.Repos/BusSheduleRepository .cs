@@ -53,7 +53,27 @@ namespace Rozklad.Repos
             return await _ctx.BusShedules.FirstAsync(x => x.DepartureTime == Departuretime);
         }
 
+        public async Task<BuyTicket> CreateTicketAsync(string? buyerName, int numTicket, string? Nomertel, int allprice, Card? card)
+        {
+            var newBuy = new BuyTicket
+            {
+               BuyerName = buyerName,
+               numTicket = numTicket,
+                NomerTel = Nomertel,
+                AllPrice = allprice,
+                card = card
 
+            };
+
+
+            //await shedules.Add(newShedule);
+            //await _ctx.AddAsync(newShedule);
+            //return await _ctx.BusShedules.FirstAsync(x => x.DepartureTime == Departuretime );
+
+            _ctx.BuyTickets.Add(newBuy);
+            await _ctx.SaveChangesAsync();
+            return await _ctx.BuyTickets.FirstAsync(x => x.NomerTel == Nomertel);
+        }
         public async Task DeleteBusSheduleAsync(int? id)
         {
             var shedule =  _ctx.BusShedules.Find(id);
@@ -62,7 +82,14 @@ namespace Rozklad.Repos
              _ctx.BusShedules.Remove(shedule);
             await _ctx.SaveChangesAsync();
         }
+        public async Task DeleteTicketAsync(int? id)
+        {
+            var ticket = _ctx.BuyTickets.Find(id);
 
+
+            _ctx.BuyTickets.Remove(ticket);
+            await _ctx.SaveChangesAsync();
+        }
 
         public async Task<IEnumerable<BusSheduleReadDto>> GetBusSheduleAsync()
          {
@@ -70,7 +97,7 @@ namespace Rozklad.Repos
 
             var shedules = new List<BusSheduleReadDto>();
 
-             foreach (var u in  _ctx.BusShedules.Include(x => x.Busroute).Include(x => x.carrier).Include(x=>x.status).ToList())
+             foreach (var u in  _ctx.BusShedules.Include(x => x.Busroute).Include(x => x.carrier).Include(x=>x.status).Include(x=>x.buyTicket).ToList())
              {
                
 
@@ -85,11 +112,15 @@ namespace Rozklad.Repos
 
                          Cost = u.Cost,
                      ArrivalTime = u.ArrivalTime,
-                     status = new StatusReadDto { statusId =u.statusId , StatusValue = u.status.StatusValue}
-            };
+                     status = new StatusReadDto { statusId =u.statusId , StatusValue = u.status.StatusValue},
 
-            
-                    shedules.Add(busDto);
+
+                      ticket = new TicketReadDto { buyTicketId = u.buyTicketId, BuyerName = u.buyTicket.BuyerName, numTicket= u.buyTicket.numTicket, NomerTel = u.buyTicket.NomerTel, AllPrice = u.buyTicket.AllPrice}
+
+                };
+
+
+        shedules.Add(busDto);
              }
 
            

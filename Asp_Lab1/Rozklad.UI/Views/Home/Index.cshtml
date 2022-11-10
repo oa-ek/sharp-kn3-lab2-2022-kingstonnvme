@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutDashmin.cshtml";
 }
 
-<div class="container-fluid pt-4 px-4">
+<div class="container-fluid pt-4 px-1000">
     <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
         <div class="col-md-6 text-center">
             <div class="float-end">
@@ -43,7 +43,7 @@
                             <td>@u.status.StatusValue</td>
                             <td>@u.ArrivalTime</td>
                             <td>@u.Cost</td>
-                            <td> <a href="/home/buy/@u.Id" class=" btn btn-warning">Придбати квиток</a></td>
+                            <td> <a href="/home/addticket/@u.Id" class=" btn btn-warning">Придбати квиток</a></td>
                             <td>
                                 <a href="/home/edit/@u.Id" class=" btn btn-warning">Редагувати</a>
                                 <a href="/home/delete/@u.Id" class=" btn btn-danger">Видалити</a>
