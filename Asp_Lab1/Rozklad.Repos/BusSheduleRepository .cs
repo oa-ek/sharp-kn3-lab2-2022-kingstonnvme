@@ -53,7 +53,27 @@ namespace Rozklad.Repos
             return await _ctx.BusShedules.FirstAsync(x => x.DepartureTime == Departuretime);
         }
 
+        public async Task<BuyTicket> CreateTicketAsync(string? buyerName, int numTicket, string? Nomertel, int allprice, Card? card)
+        {
+            var newBuy = new BuyTicket
+            {
+               BuyerName = buyerName,
+               numTicket = numTicket,
+                NomerTel = Nomertel,
+                AllPrice = allprice,
+                card = card
 
+            };
+
+
+            //await shedules.Add(newShedule);
+            //await _ctx.AddAsync(newShedule);
+            //return await _ctx.BusShedules.FirstAsync(x => x.DepartureTime == Departuretime );
+
+            _ctx.BuyTickets.Add(newBuy);
+            await _ctx.SaveChangesAsync();
+            return await _ctx.BuyTickets.FirstAsync(x => x.NomerTel == Nomertel);
+        }
         public async Task DeleteBusSheduleAsync(int? id)
         {
             var shedule =  _ctx.BusShedules.Find(id);
@@ -62,7 +82,14 @@ namespace Rozklad.Repos
              _ctx.BusShedules.Remove(shedule);
             await _ctx.SaveChangesAsync();
         }
+        public async Task DeleteTicketAsync(int? id)
+        {
+            var ticket = _ctx.BuyTickets.Find(id);
 
+
+            _ctx.BuyTickets.Remove(ticket);
+            await _ctx.SaveChangesAsync();
+        }
 
         public async Task<IEnumerable<BusSheduleReadDto>> GetBusSheduleAsync()
          {
@@ -70,7 +97,7 @@ namespace Rozklad.Repos
 
             var shedules = new List<BusSheduleReadDto>();
 
-             foreach (var u in  _ctx.BusShedules.Include(x => x.Busroute).Include(x => x.carrier).Include(x=>x.status).ToList())
+             foreach (var u in  _ctx.BusShedules.Include(x => x.Busroute).Include(x => x.carrier).Include(x=>x.status).Include(x=>x.buyTicket).ToList())
              {
                
 
@@ -85,11 +112,15 @@ namespace Rozklad.Repos
 
                          Cost = u.Cost,
                      ArrivalTime = u.ArrivalTime,
-                     status = new StatusReadDto { statusId =u.statusId , StatusValue = u.status.StatusValue}
-            };
+                     status = new StatusReadDto { statusId =u.statusId , StatusValue = u.status.StatusValue},
 
-            
-                    shedules.Add(busDto);
+
+                      ticket = new TicketReadDto { buyTicketId = u.buyTicketId, BuyerName = u.buyTicket.BuyerName, numTicket= u.buyTicket.numTicket, NomerTel = u.buyTicket.NomerTel, AllPrice = u.buyTicket.AllPrice}
+
+                };
+
+
+        shedules.Add(busDto);
              }
 
            
@@ -97,25 +128,61 @@ namespace Rozklad.Repos
             return  shedules;
          }
 
+        public async Task<IEnumerable<TicketReadDto>> GetTicketAsync()
+        {
+            var tickets = new List<TicketReadDto>();
+
+            foreach (var u in _ctx.BuyTickets.ToList())
+            {
+                var tikDto = new TicketReadDto
+                {
+                    buyTicketId = u.buyTicketId,
+                    BuyerName = u.BuyerName,
+                    numTicket = u.numTicket,
+                    NomerTel = u.NomerTel,
+                    AllPrice = u.AllPrice            
+               };
+                tickets.Add(tikDto);
+            }
+            return tickets;
+        }
+
         public async Task<BusSheduleReadDto> GetBusSheduleAsync(int? id)
         {
             var u = await _ctx.BusShedules.FirstAsync(x => x.Id == id);
 
-            
+
             var busDto = new BusSheduleReadDto
             {
                 Id = u.Id,
                 DepartureTime = u.DepartureTime,
 
-               // Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, PlaceOfDeparture = u.Busroute.PlaceOfDeparture, IntermediateStops = u.Busroute.IntermediateStops, PlaceOfArrival = u.Busroute.PlaceOfArrival },
+                // Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, PlaceOfDeparture = u.Busroute.PlaceOfDeparture, IntermediateStops = u.Busroute.IntermediateStops, PlaceOfArrival = u.Busroute.PlaceOfArrival },
                 Seats = u.Seats,
-               // carier = new CarrierReadDto { carrierId = u.carrierId, Name = u.carrier.Name, Transport = u.carrier.Transport },
+                // carier = new CarrierReadDto { carrierId = u.carrierId, Name = u.carrier.Name, Transport = u.carrier.Transport },
 
                 Cost = u.Cost,
                 ArrivalTime = u.ArrivalTime,
-               // status = new StatusReadDto { statusId = u.statusId, StatusValue = u.status.StatusValue }
+                // status = new StatusReadDto { statusId = u.statusId, StatusValue = u.status.StatusValue }
             };
             return busDto;
+        }
+
+        public async Task<TicketReadDto> GetTicketAsync(int? id)
+        {
+            var u = await _ctx.BuyTickets.FirstAsync(x => x.buyTicketId == id);
+
+            
+            var tikDto = new TicketReadDto
+            {
+                buyTicketId = u.buyTicketId,
+                BuyerName = u.BuyerName,
+                numTicket =u.numTicket,
+                NomerTel = u.NomerTel,
+                AllPrice = u.AllPrice
+               
+            };
+            return tikDto;
         }
 
         public async Task<BusSheduleReadDto> GetBusSheduleEditAsync(int? id)

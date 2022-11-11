@@ -21,7 +21,7 @@ namespace Rozklad.Repos.Dto
         public float? Cost { get; set; }
         public int statusId { get; set; }
         public StatusReadDto? status { get; set; }
-
+        public TicketReadDto? ticket { get; set; }
 
     }
 }
