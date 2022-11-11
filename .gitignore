@@ -406,3 +406,5 @@ Asp_Lab1/Rozklad.UI/appsettings.json
 
 Asp_Lab1/Rozklad.Core/Migrations/20221019213953_Initial-Migration.Designer.cs
 Asp_Lab1/Rozklad.Core/Migrations/20221019213953_Initial-Migration.cs
+Asp_Lab1/Rozklad.Core/Migrations/20221104205737_init.Designer.cs
+Asp_Lab1/Rozklad.Core/Migrations/20221104205737_init.cs

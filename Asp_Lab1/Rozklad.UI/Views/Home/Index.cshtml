@@ -15,18 +15,18 @@
             <h1>Розклад руху автобусів!</h1>
             <hr />
 
-            <table class="table table-bordered">
+            <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Departure Time</th>
-                        <th>Bus route</th>
-                        <th>Seats</th>
-                        <th>Carrier</th>
-                        <th>Status</th>
-                        <th>Arrival time</th>
-                        <th>Cost</th>
-                        <th>Квитки</th>
-                        <th>btn</th>
+                        <th scope="col">Departure Time</th>
+                        <th scope="col">Bus route</th>
+                        <th scope="col">Seats</th>
+                        <th scope="col">Carrier</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Arrival time</th>
+                        <th scope="col">Cost</th>
+                        <th scope="col">Квитки</th>
+                        <th scope="col">btn</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,8 @@
                             <td>@u.DepartureTime</td>
                             <td>
                                 @u.Busrooute.PlaceOfDeparture - @u.Busrooute.IntermediateStops - @u.Busrooute.PlaceOfArrival
-                                <a href="/home/maps/@u.Id" class=" btn btn-warning">Карта</a>
+                                @*<a href="*/home/maps/@u.Id" class=" btn btn-warning">Карта</a>*@
+                                <a href="https://metanit.com/sharp/articles/mvc/3.php" class=" btn btn-warning">Карта</a>
                             </td>
                             <td>@u.Seats</td>
                             <td>@u.carier.Name - @u.carier.Transport</td>
